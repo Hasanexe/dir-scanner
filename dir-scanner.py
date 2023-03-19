@@ -2,7 +2,7 @@ import requests , sys , threading
 from threading import *
 
 def printUsage():   #When entered wrong args show usage and exit
-    print("USAGE: dir-scanner.py [URL] [WORDLIST] [NUM OF THREAD] <OPTINS>")
+    print("USAGE: dir-scanner.py [URL] [WORDLIST] [NUM OF THREAD] <OPTIONS>")
     print("-l	show less, only good results")
     print("-s	stop when found")
     sys.exit()
@@ -23,7 +23,7 @@ less = False    # is -l option ticked in args
 stop = False    # is -s option ticked in args
 n = 2           # Number of threads by default 2
 
-if len(sys.argv) < 3:   # if less args
+if len(sys.argv) < 4:   # if less args
     printUsage()
 else:
     try:
