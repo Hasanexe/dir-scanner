@@ -1,6 +1,6 @@
 # dir-scanner
-Multi-Thread Directory Brute-Force\n\n
-
-USAGE: dir-scanner.py [URL] [WORDLIST] [NUM OF THREADS] <OPTINS>\n
--l      show less, only good results\n
+Multi-Thread Directory Brute-Force<br />
+<br />
+USAGE: dir-scanner.py [URL] [WORDLIST] [NUM OF THREADS] \<options\> <br />
+-l      show less, only good results<br />
 -s      stop when found
