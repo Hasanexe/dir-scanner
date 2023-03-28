@@ -1,71 +1,29 @@
-import requests , sys , threading
+import requests , sys , threading , argparse
 from threading import *
 
-def printUsage():   #When entered wrong args show usage and exit
-    print("USAGE: dir-scanner.py [URL] [WORDLIST] [NUM OF THREAD] <OPTIONS>")
-    print("-l	show less, only good results")
-    print("-s	stop when found")
-    sys.exit()
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='A simple directory scanner')
+    parser.add_argument('url', help='The target URL to scan')
+    parser.add_argument('wordlist', help='The wordlist to use')
+    parser.add_argument('-n', type=int, default=2, help='Number of threads to use (default: 2)')
+    parser.add_argument('-l', action='store_true', help='Show less, only good results')
+    parser.add_argument('-s', action='store_true', help='Stop when a file is found')
+    return parser.parse_args()
 
+args = parse_arguments()
+url = args.url
+wordlist = open(args.wordlist, 'r', encoding='ISO-8859-1').readlines()
+n = args.n
+less = args.l
+stop = args.s
 
 def check(url):     #URL Checking method check url and return status code
-                    #https://www.pemavor.com/url-status-code-checker-with-python/
     try:            
         r = requests.head(url,verify=False,timeout=5) # it is faster to only request the header
         return (r.status_code)
     except:
         return 'Not Rachable'
 
-# ----------------------------------------ARGUMENTS---------------------------------------
-
-wordlist = ''
-less = False    # is -l option ticked in args
-stop = False    # is -s option ticked in args
-n = 2           # Number of threads by default 2
-
-if len(sys.argv) < 4:   # if less args
-    printUsage()
-else:
-    try:
-        url = sys.argv[1]
-        wordlist = open(sys.argv[2], 'r', encoding='ISO-8859-1').readlines()
-    except:
-        print("Error in WORDLIST")
-        printUsage()
-    if sys.argv[3].isnumeric():
-        n = int(sys.argv[3])    #Number of threads 
-    else:
-        printUsage()
-
-
-
-     
-        
-if len(sys.argv) == 5:  # if there is 5 args mean options is used check if used -l or -s
-    if sys.argv[4].lower() == '-l':
-        less = True
-    elif sys.argv[4].lower() == '-s':
-        stop = True
-    else:
-        printUsage()
-        
-if len(sys.argv) == 6:  # if there is 6 args mean both options is used but still wanted to be sure
-    if sys.argv[4].lower() == '-l':
-        less = True
-    elif sys.argv[4].lower() == '-s':
-        stop = True
-    else:
-        printUsage()
-    if sys.argv[5].lower() == '-l':
-        less = True
-    elif sys.argv[5].lower() == '-s':
-        stop = True
-    else:
-        printUsage()
-# -------------------------------------ARGUMENTS SECTION END------------------------------------
-
-
-# ------------------------------------actual code starts here-----------------------------------
 
 stop_event = threading.Event()  #if stop option used we use this evet to stop all threads
 found = []
