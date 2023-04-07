@@ -36,4 +36,10 @@ To use the directory scanner, follow these steps:
 <!-- Contributing guidelines -->
 ## Contributing
 
-If you find any issues with the directory scanner or would like to contribute to the project, please feel free to submit a pull request or open an issue on the Github repository.
+If you find any issues with the `dir-scanner` or would like to contribute to the project, please feel free to submit a pull request or open an issue on the Github repository.
+
+## License
+
+`dir-scanner` is licensed under the [Creative Commons Attribution-NonCommercial (CC BY-NC) license](https://creativecommons.org/licenses/by-nc/4.0/).
+
+
